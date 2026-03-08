@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dla Mamy – Dzień Kobiet</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+  background-size:400% 400%;
+  animation:gradientMove 12s ease infinite;
+  overflow:hidden;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.card{
+  width:420px;
+  height:300px;
+  perspective:1000px;
+}
+
+.inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform 1s;
+  transform-style:preserve-3d;
+}
+
+.card.open .inner{
+  transform:rotateY(180deg);
+}
+
+.front, .back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+}
+
+.front{
+  background:white;
+}
+
+.back{
+  background:white;
+  transform:rotateY(180deg);
+}
+
+h1{
+  margin:0 0 10px 0;
+  font-weight:600;
+}
+
+p{
+  line-height:1.6;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 22px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(45deg,#ff4d6d,#ff758f);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:transform .2s, box-shadow .2s;
+}
+
+button:hover{
+  transform:scale(1.08);
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.hearts{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+.heart{
+  position:absolute;
+  font-size:22px;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  from{transform:translateY(-10vh) scale(1)}
+  to{transform:translateY(110vh) scale(1.4)}
+}
+
+.typing{
+  border-right:3px solid #ff4d6d;
+  white-space:nowrap;
+  overflow:hidden;
+  width:0;
+  animation:typing 4s steps(40,end) forwards, blink .8s infinite;
+}
+
+@keyframes typing{
+  to{width:100%}
+}
+
+@keyframes blink{
+  50%{border-color:transparent}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <div class="inner">
+
+    <div class="front">
+      <h1>🌸Dla Mamy🌸</h1>
+      <p>Kliknij aby otworzyć kartkę</p>
+      <button onclick="openCard()">Otwórz</button>
+    </div>
+
+    <div class="back">
+      <h1>Wszystkiego Najlepszego</h1>
+      <p class="typing">Mamo, dziękuję za wszystko co dla mnie robisz ❤️</p>
+
+      <p>
+        W Dniu Kobiet życzę Ci dużo zdrowia,<br>
+        szczęścia, spokoju i spełnienia marzeń i ogólnie wszystkiego najlepszego.<br><br>
+        Jesteś najlepszą mamą na świecie! 💖
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+
+function openCard(){
+  document.getElementById('card').classList.add('open');
+  createHearts();
+}
+
+function createHearts(){
+  const container=document.getElementById('hearts');
+
+  for(let i=0;i<40;i++){
+    const heart=document.createElement('div');
+    heart.className='heart';
+    heart.innerHTML='❤️';
+
+    heart.style.left=Math.random()*100+'%';
+    heart.style.animationDuration=(Math.random()*3+3)+'s';
+    heart.style.fontSize=(Math.random()*20+15)+'px';
+
+    container.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),6000);
+  }
+}
+
+</script>
+
+</body>
+</html>
